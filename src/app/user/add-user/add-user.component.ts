@@ -1,16 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FilterUserComponent } from "../filter-user/filter-user.component";
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-add-user',
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule
+  ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
 })
 export class AddUserComponent implements OnInit {
 
   addUser: FormGroup | any;
+
+  data: any;
+
+  displayedColumns: string[] = ['Name', 'Workouts', 'No', 'time'];
+  dataSource = new MatTableDataSource<any>();
+
 
   storageData: any = [];
 
@@ -61,7 +73,7 @@ export class AddUserComponent implements OnInit {
         let setWorkout = `${this.storageData[i]?.workoutType}, ${data.workoutType}`;
         let setupWorkouts = setWorkout.split(",");
         if (this.storageData[i]?.userName === data?.userName) {
-          if (this.storageData[i].workoutType.includes(data.workoutType)) {}
+          if (this.storageData[i].workoutType.includes(data.workoutType)) { }
           else {
             this.storageData[i].workoutType = setWorkout;
             this.storageData[i].totalworkout = setupWorkouts.length;
@@ -71,6 +83,7 @@ export class AddUserComponent implements OnInit {
         }
       }
     }
+    this.dataSource = this.storageData;
     localStorage.setItem("users", JSON.stringify(this.storageData));
   }
 
