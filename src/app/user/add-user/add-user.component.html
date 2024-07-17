@@ -1,7 +1,5 @@
 <div id="makeForm">
-
     <h2>Add New User</h2>
-
     <form [formGroup]="addUser" (ngSubmit)="addUserSubmit()">
         <div>
             <mat-form-field>
@@ -30,4 +28,4 @@
     </form>
 </div>
 <mat-divider></mat-divider>
-<app-filter-user></app-filter-user>
+<app-filter-user [storageData]="storageData"></app-filter-user>
