@@ -1,0 +1,23 @@
+#makeForm {
+  margin-top: 50px;
+  padding: 50px;
+
+  .min {
+    margin-left: 100px;
+  }
+
+  .btn {
+    background-color: green;
+    width: 100px;
+    height: 50px;
+    color: white;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    margin-left: 430px;
+  }
+
+  mat-divider {
+    display: none;
+  }
+}

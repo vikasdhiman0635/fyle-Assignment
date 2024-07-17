@@ -1,0 +1,33 @@
+<div id="makeForm">
+
+    <h2>Add New User</h2>
+
+    <form [formGroup]="addUser" (ngSubmit)="addUserSubmit()">
+        <div>
+            <mat-form-field>
+                <mat-label>User Name</mat-label>
+                <input matInput formControlName="userName" placeholder="Jhon">
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-form-field>
+            <mat-label>Workout Type</mat-label>
+            <mat-select formControlName="workoutType" matInput>
+                <mat-option value="Running">Running</mat-option>
+                <mat-option value="Cycling">Cycling</mat-option>
+                <mat-option value="Swimming">Swimming</mat-option>
+                <mat-option value="Yoga">Yoga</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="min">
+            <mat-label>Workout Minutes</mat-label>
+            <input type="number" matInput formControlName="workoutMinutes">
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <div>
+            <input mat-flat-button [disabled]="addUser.invalid" type="submit" class="btn" value="Add User">
+        </div>
+    </form>
+</div>
+<mat-divider></mat-divider>
+<app-filter-user></app-filter-user>
