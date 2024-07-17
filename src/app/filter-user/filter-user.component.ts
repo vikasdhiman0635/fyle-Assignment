@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from '../material.module';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-filter-user',
@@ -14,8 +15,11 @@ export class FilterUserComponent {
 
   data: any;
 
+  displayedColumns: string[] = ['Name', 'Workouts', 'No', 'time'];
+  dataSource = new MatTableDataSource<any>();
+
   constructor() {
-    let localData = localStorage.getItem("users");
+    let localData: any = localStorage.getItem("users");
     // this.data = JSON.parse(localData);
     console.log(JSON.parse(localData));
   }

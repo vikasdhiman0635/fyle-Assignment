@@ -11,7 +11,7 @@ import { FilterUserComponent } from "../filter-user/filter-user.component";
     ReactiveFormsModule,
     MaterialModule,
     FilterUserComponent
-],
+  ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
 })
@@ -19,7 +19,11 @@ export class AddUserComponent {
 
   addUser: FormGroup | any;
 
+  storageData = new Array<any>();
+
   constructor(private fb: FormBuilder) {
+    let data: any = localStorage.getItem('users');
+    this.storageData = JSON.parse(data);
     this.addUser = fb.group({
       userName: ['', Validators.required],
       workoutType: ['', Validators.required],
@@ -29,7 +33,32 @@ export class AddUserComponent {
 
   addUserSubmit() {
     console.log(this.addUser.value);
-    localStorage.setItem("users", JSON.stringify(this.addUser.value));
+    let data = {
+      userName: this.addUser.value.userName,
+      workoutType: this.addUser.value.workoutType,
+      workoutMinutes: this.addUser.value.workoutMinutes
+    }
+    // this.checkUserExist(this.addUser.value.userName);
+    // if (this.storageData.length > 0) {
+
+    // }
+    // else {
+
+    //   this.storageData.push(this.addUser.value);
+    // }
+    this.storageData.push(data)
+    localStorage.setItem("users", JSON.stringify(this.storageData));
+  }
+
+  checkUserExist(userName: string) {
+    for (let i = 0; i < this.storageData.length; i++) {
+      if (this.storageData[i].userName === userName) {
+        console.log(true);
+      }
+      else {
+        console.log(false);
+      }
+    }
   }
 
 }
