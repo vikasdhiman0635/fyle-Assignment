@@ -41,13 +41,11 @@ export class AddUserComponent implements OnInit {
       for (let i = 0; i < fianlData.length; i++) {
         this.storageData.push(fianlData[i]);
       }
-      console.log(this.storageData);
-      console.log(this.storageData.length);
+      this.dataSource = this.storageData;
     }
   }
 
   addUserSubmit() {
-    console.log(this.addUser.value);
     let data: any = {
       userName: this.addUser.value.userName,
       workoutType: this.addUser.value.workoutType,
@@ -59,16 +57,18 @@ export class AddUserComponent implements OnInit {
     else {
       data.totalworkout = 1;
       this.storageData.push(data);
+      this.dataSource.data = this.storageData;
       localStorage.setItem("users", JSON.stringify(this.storageData));
     }
   }
 
   checkUserExist(data: any) {
+    this.dataSource = new MatTableDataSource<any>();
     if (!this.checkUSer(data)) {
       data.totalworkout = 1;
       this.storageData[this.storageData.length] = data;
     }
-    if (this.checkUSer(data)) {
+    else if (this.checkUSer(data)) {
       for (let i = 0; i < this.storageData.length; i++) {
         let setWorkout = `${this.storageData[i]?.workoutType}, ${data.workoutType}`;
         let setupWorkouts = setWorkout.split(",");
@@ -83,7 +83,7 @@ export class AddUserComponent implements OnInit {
         }
       }
     }
-    this.dataSource = this.storageData;
+    this.dataSource.data = this.storageData;
     localStorage.setItem("users", JSON.stringify(this.storageData));
   }
 
@@ -95,6 +95,5 @@ export class AddUserComponent implements OnInit {
     }
     return false;
   }
-
 
 }
